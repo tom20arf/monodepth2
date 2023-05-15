@@ -13,6 +13,7 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from tensorboardX import SummaryWriter
 
 import json
@@ -99,9 +100,20 @@ class Trainer:
             self.models["predictive_mask"].to(self.device)
             self.parameters_to_train += list(self.models["predictive_mask"].parameters())
 
-        self.model_optimizer = optim.Adam(self.parameters_to_train, self.opt.learning_rate)
-        self.model_lr_scheduler = optim.lr_scheduler.StepLR(
-            self.model_optimizer, self.opt.scheduler_step_size, 0.1)
+        self.params = [ {
+            "params":self.parameters_to_train, 
+            "lr": 1e-4
+            #"weight_decay": 0.01
+            },
+            {
+            "params": list(self.models["encoder"].parameters()), 
+           "lr": self.opt.learning_rate
+            #"weight_decay": 0.01
+            } ]
+            
+        self.model_optimizer = optim.AdamW(self.params)
+        self.model_lr_scheduler = optim.lr_scheduler.ExponentialLR(self.model_optimizer, 0.9)
+
 
         if self.opt.load_weights_folder is not None:
             self.load_model()

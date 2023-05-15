@@ -71,7 +71,7 @@ class MonoDataset(data.Dataset):
             self.contrast = (0.8, 1.2)
             self.saturation = (0.8, 1.2)
             self.hue = (-0.1, 0.1)
-            transforms.ColorJitter.get_params(
+            transforms.ColorJitter(
                 self.brightness, self.contrast, self.saturation, self.hue)
         except TypeError:
             self.brightness = 0.2
@@ -172,8 +172,8 @@ class MonoDataset(data.Dataset):
             inputs[("K", scale)] = torch.from_numpy(K)
             inputs[("inv_K", scale)] = torch.from_numpy(inv_K)
 
-        if do_color_aug:
-            color_aug = transforms.ColorJitter.get_params(
+        if do_color_aug: #revised the colorjitter, previously color_aug = transforms.ColorJitter.get_params(
+            color_aug = transforms.ColorJitter(
                 self.brightness, self.contrast, self.saturation, self.hue)
         else:
             color_aug = (lambda x: x)
