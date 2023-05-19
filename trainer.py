@@ -18,7 +18,9 @@ from tensorboardX import SummaryWriter
 
 import json
 
-from utils import *
+from utils import readlines
+from utils import normalize_image
+from utils import sec_to_hm_str
 from kitti_utils import *
 from layers import *
 
