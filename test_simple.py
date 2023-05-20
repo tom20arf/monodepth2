@@ -5,7 +5,8 @@
 # available in the LICENSE file.
 
 from __future__ import absolute_import, division, print_function
-
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning) 
 import os
 import sys
 import glob
@@ -27,9 +28,10 @@ from evaluate_depth import STEREO_SCALE_FACTOR
 def parse_args():
     parser = argparse.ArgumentParser(
         description='Simple testing funtion for Monodepthv2 models.')
-
+    
     parser.add_argument('--image_path', type=str,
-                        help='path to a test image or folder of images', required=True)
+                        help='path to a test image or folder of images',
+                        default='assets/test_image.jpg')
     parser.add_argument('--model_name', type=str,
                         help='name of a pretrained model to use',
                         choices=[
@@ -41,7 +43,8 @@ def parse_args():
                             "mono+stereo_no_pt_640x192",
                             "mono_1024x320",
                             "stereo_1024x320",
-                            "mono+stereo_1024x320"])
+                            "mono+stereo_1024x320"],
+                        default='mono+stereo_640x192')
     parser.add_argument('--ext', type=str,
                         help='image extension to search for in folder', default="jpg")
     parser.add_argument("--no_cuda",
@@ -51,7 +54,6 @@ def parse_args():
                         help='if set, predicts metric depth instead of disparity. (This only '
                              'makes sense for stereo-trained KITTI models).',
                         action='store_true')
-
     return parser.parse_args()
 
 

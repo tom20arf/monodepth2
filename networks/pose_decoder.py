@@ -3,7 +3,8 @@
 # This software is licensed under the terms of the Monodepth2 licence
 # which allows for non-commercial use only, the full terms of which are made
 # available in the LICENSE file.
-
+print("comes here 2")
+'''
 from __future__ import absolute_import, division, print_function
 
 import torch
@@ -52,3 +53,4 @@ class PoseDecoder(nn.Module):
         translation = out[..., 3:]
 
         return axisangle, translation
+'''

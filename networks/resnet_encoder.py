@@ -3,7 +3,8 @@
 # This software is licensed under the terms of the Monodepth2 licence
 # which allows for non-commercial use only, the full terms of which are made
 # available in the LICENSE file.
-
+print("Also comes here 3")
+'''
 from __future__ import absolute_import, division, print_function
 
 import numpy as np
@@ -96,3 +97,4 @@ class ResnetEncoder(nn.Module):
         self.features.append(self.encoder.layer4(self.features[-1]))
 
         return self.features
+'''

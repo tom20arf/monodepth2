@@ -98,9 +98,11 @@ def download_model_if_doesnt_exist(model_name):
     if not os.path.exists(os.path.join(model_path, "encoder.pth")):
 
         model_url, required_md5checksum = download_paths[model_name]
-
+        '''
         if not check_file_matches_md5(required_md5checksum, model_path + ".zip"):
             print("-> Downloading pretrained model to {}".format(model_path + ".zip"))
+            print("Model url:",model_url)
+            print("Model path:",model_path)
             urllib.request.urlretrieve(model_url, model_path + ".zip")
 
         if not check_file_matches_md5(required_md5checksum, model_path + ".zip"):
@@ -112,3 +114,4 @@ def download_model_if_doesnt_exist(model_name):
             f.extractall(model_path)
 
         print("   Model unzipped to {}".format(model_path))
+        '''
